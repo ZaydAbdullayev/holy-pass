@@ -5,9 +5,7 @@ import bg_right from "./assets/bg2.png";
 import { HeavenButton, InfernalButton } from "./components/button";
 import { RiTwitterXFill } from "react-icons/ri";
 import {
-  getCardAsImageData,
   saveCardAsImage,
-  uploadToImgbb,
 } from "./context/fetch.service";
 
 const heavenQuotes = [
@@ -28,7 +26,6 @@ export const App = () => {
   const [name, setName] = useState("");
   const [reason, setReason] = useState("");
   const [generated, setGenerated] = useState(null);
-  const [sending, setSending] = useState(false);
 
   const openModal = (chosenSide) => {
     setSide(chosenSide);
@@ -57,23 +54,6 @@ export const App = () => {
     saveCardAsImage(cardElement);
   };
 
-  const shareOnX = async () => {
-    if (!generated) return;
-    setSending(true);
-    const cardEl = document.querySelector(".card");
-    const imgUrl = await uploadToImgbb(await getCardAsImageData(cardEl));
-    console.log(imgUrl);
-
-    const tweetText = `I just got my passport to ${
-      generated.side === "heaven" ? "Heaven" : "Hell"
-    }! ${generated.name} - ${generated.reason} - "${generated.quote}"`;
-    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-      tweetText
-    )}&url=${encodeURIComponent(imgUrl)}`;
-    window.open(tweetUrl, "_blank");
-    setSending(false);
-  };
-
   return (
     <div className={`home-wrapper ${side}`}>
       <img src={bg_left} alt="Background Left" className={`left`} />
@@ -90,17 +70,11 @@ export const App = () => {
               <>
                 <InfernalButton onClick={reset}>home</InfernalButton>
                 <InfernalButton onClick={downloadCard}>Download</InfernalButton>
-                <InfernalButton onClick={shareOnX}>
-                  Share on X {sending && <BiLoaderCircle className="loader" />}
-                </InfernalButton>
               </>
             ) : (
               <>
                 <HeavenButton onClick={reset}>Home</HeavenButton>
                 <HeavenButton onClick={downloadCard}>Download</HeavenButton>
-                <HeavenButton onClick={shareOnX}>
-                  Share on X {sending && <BiLoaderCircle className="loader" />}
-                </HeavenButton>
               </>
             )}
           </div>
@@ -172,7 +146,7 @@ export const App = () => {
         </>
       )}
 
-      <div className="home-footer">
+      <div className={`home-footer`}>
         <p className="home-footer-text">
           © 2025 Holy Passport. All rights reserved.
         </p>
