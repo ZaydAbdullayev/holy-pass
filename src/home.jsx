@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./home.css";
-import bg_left from "./assets/bg1.png";
-import bg_right from "./assets/bg2.png";
+import bg_left from "./assets/bg1.jpg";
+import bg_right from "./assets/bg2.jpg";
 import { HeavenButton, InfernalButton } from "./components/button";
 import { RiTwitterXFill } from "react-icons/ri";
 import {
