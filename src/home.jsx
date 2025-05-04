@@ -91,7 +91,7 @@ export const App = () => {
               May the odds be ever in your favor.
             </p>
             <a
-              href="https://x.com"
+              href="https://x.com/holy_passport"
               className="follow-link"
               target="_blank"
               rel="noopener noreferrer"
